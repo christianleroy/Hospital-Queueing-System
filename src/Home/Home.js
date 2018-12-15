@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NewPatient from '../Patient/NewPatient';
 import Queue from '../Queue/Queue';
 
-class MainContent extends Component{
+class Home extends Component{
 
 	constructor(props){
 		super(props);
@@ -26,4 +26,4 @@ class MainContent extends Component{
 
 }
 
-export default MainContent;
+export default Home;

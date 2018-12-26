@@ -12,10 +12,10 @@ class Home extends Component{
 		return (<React.Fragment>
 			<div className="container">
 			  <div className="row">
-			    <div class="col-4 card">
+			    <div className="col-4 card">
 			      <NewPatient/>
 			    </div>
-			    <div class="col-8 card">
+			    <div className="col-8 card">
 			    	<Queue />
 			    </div>
 			  </div>

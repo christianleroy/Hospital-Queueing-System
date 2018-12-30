@@ -11,6 +11,15 @@ module.exports = {
       isActive: {
         type: Sequelize.BOOLEAN
       },
+      queueId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Queues',
+          id: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

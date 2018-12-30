@@ -5,6 +5,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Ticket.associate = function(models) {
     // associations can be defined here
+    Ticket.belongsTo(models.Queue, { as: 'queue' });
+    Ticket.belongsTo(models.Patient, { as: 'patient' });
+    Ticket.belongsTo(models.Doctor, {as: 'doctor' });
   };
   return Ticket;
 };

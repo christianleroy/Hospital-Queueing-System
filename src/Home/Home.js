@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import NewPatient from '../Patient/NewPatient';
-import Queue from '../Queue/Queue';
+import DisplayQueue from '../Queues/DisplayQueue';
 
 class Home extends Component{
-
-	constructor(props){
-		super(props);
-	}
-
 	render(){
 		return (<React.Fragment>
 			<div className="container">
@@ -16,7 +11,7 @@ class Home extends Component{
 			      <NewPatient/>
 			    </div>
 			    <div className="col-8 card">
-			    	<Queue />
+			    	<DisplayQueue />
 			    </div>
 			  </div>
 			</div>

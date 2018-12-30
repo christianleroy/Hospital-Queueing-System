@@ -1,33 +1,41 @@
+'use strict';
 import React, { Component } from 'react';
 import { config } from '../Config/config.js';
 import axios from 'axios';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class NewPatient extends Component{
-
-	constructor(props){
-		super(props);
+	constructor(){
+		super();
 		this.URL = config.URL;
 		this.initialState =  {
 			firstName: '',
 			lastName: '',
 			gender: '',
-			birthday: '',
+			birthday: null,
 			caseDescription: '',
-			disabled: false
+			submitDisabled: true,
+			resetDisabled: false,
+			errorMessages: [],
 		};
 		this.state = this.initialState;
+		this.state.show = false;
+		this.updateBirthday = this.updateBirthday.bind(this);
 	}
 
 	updateFirstName(value){
 		this.setState({
 			firstName: value
 		});
+		this.validate();
 	}
 
 	updateLastName(value){
 		this.setState({
 			lastName: value
 		});
+		this.validate();
 	}
 
 	updateCaseDescription(value){
@@ -48,9 +56,25 @@ class NewPatient extends Component{
 		});
 	}
 
+	validate(){
+		let errorMessages = [];
+		if(!this.state.firstName){
+			errorMessages.push("First name field is required.");
+		}
+		if(!this.state.lastName){
+			errorMessages.push("Last name field is required.");
+		}
+
+		this.setState({errorMessages});
+		if(errorMessages.length===0){
+			this.setState({submitDisabled: false})
+		}
+	}
+
 	async submit(){
 		this.setState({
-	      disabled: true
+		  submitDisabled: true,
+	      resetDisabled: true
 	    });
 
 		let {firstName, lastName, caseDescription, birthday, gender } = this.state;
@@ -60,12 +84,12 @@ class NewPatient extends Component{
 	      caseDescription,
 	      birthday,
 	      gender
-	    }).then(function(response){
-	    	console.log(response);
+	    }).then(response => {
+	    	this.setState(this.initialState);
 	    }).catch(function(error){
 	    	console.log(error);
 	    });
-	    this.setState({ disabled: false });
+	    this.setState({ submitDisabled:false, resetDisabled: false });
 
 	}
 
@@ -78,6 +102,18 @@ class NewPatient extends Component{
 			<React.Fragment>
 			  <div className="form-group">
 			  	<h4 className="text-danger">New Patient</h4>
+			  	{ this.state.errorMessages.length > 0 &&
+					<div className="alert alert-danger" role="alert">
+						{ this.state.errorMessages.map(errorMessage =>(
+							<li key={errorMessage}>
+								{errorMessage}
+							</li>
+						)
+						)}
+					</div>
+			  	}
+			  </div>
+			  <div className="form-group">
 			    <label htmlFor="firstName" className="text-danger">First Name</label>
 			    <input type="text" className="form-control" id="firstName" placeholder="First Name"
 			    	onBlur={(e) => this.updateFirstName(e.target.value)}
@@ -136,21 +172,25 @@ class NewPatient extends Component{
 			  </div>
 			  <div className="form-group">
 			    <label htmlFor="birthday" className="text-danger">Birthday</label>
-			    <input type="text" className="form-control" id="birthday" placeholder="Birthday"
-			    	onBlur={(e) => this.updateBirthday(e.target.value)}
-			    	onChange={(e) => this.updateBirthday(e.target.value)}
-			    	value={this.state.birthday}
+			  </div>
+			  <div className="form-group">
+			    <DatePicker
+			    	className="form-control"
+			    	id="birthday" placeholder="Birthday"
+			    	onChange={this.updateBirthday}
+			    	selected={this.state.birthday}
+			    	dateFormat="yyyy-MM-dd"
 			    />
 			  </div>
 			  <div className="form-group">
 			  		<button type="button" className="btn btn-danger"
 			  			onClick={() => this.submit() }
-			  			disabled={this.state.disabled}
+			  			disabled={this.state.submitDisabled}
 			  		>
 			  		Submit</button>
 			  		<button type="button" className="btn btn-default"
 			  			onClick={() => this.reset() }
-			  			disabled={this.state.disabled}
+			  			disabled={this.state.resetDisabled}
 			  		>
 			  		Reset</button>
 			  </div>

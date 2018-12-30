@@ -14,6 +14,7 @@ app.use(helmet())
 app.use(cors());
 
 var patientController = require('./controllers/patientController');
+var queueController = require('./controllers/queueController');
 
 
 // retrieve all questions
@@ -24,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/patients/create", patientController.create);
-
+app.get("/queues/gettickets", queueController.getTickets);
 // start the server
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);

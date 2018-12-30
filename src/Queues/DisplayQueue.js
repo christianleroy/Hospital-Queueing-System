@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 
-class Queue extends Component {
-
-	constructor(props){
-		super(props);
-	}
-
+class DisplayQueue extends Component {
 	render(){
 		return(
 			<div className="container">
@@ -20,8 +15,8 @@ class Queue extends Component {
 						</div>
 					</div>
 				</div>
-				<div className="row">
-					<div className="col-sm-4 card text-center">
+				<div className="row" style={{marginBottom:'20px'}}>
+					<div className="col-sm-3 card text-center">
 						<div className="card-body">
 							<h1>0012</h1>
 						</div>
@@ -30,7 +25,7 @@ class Queue extends Component {
 							<p>Dr. Elena Perez</p>
 						</div>
 					</div>
-					<div className="col-sm-4 card text-center">
+					<div className="col-sm-3 card text-center">
 						<div className="card-body">
 							<h1>0012</h1>
 						</div>
@@ -39,7 +34,7 @@ class Queue extends Component {
 							<p>Dr. Elena Perez</p>
 						</div>
 					</div>
-					<div className="col-sm-4 card text-center">
+					<div className="col-sm-3 card text-center">
 						<div className="card-body">
 							<h1>0012</h1>
 						</div>
@@ -48,7 +43,7 @@ class Queue extends Component {
 							<p>Dr. Elena Perez</p>
 						</div>
 					</div>
-					<div className="col-sm-4 card text-center">
+					<div className="col-sm-3 card text-center">
 						<div className="card-body">
 							<h1>0012</h1>
 						</div>
@@ -57,7 +52,7 @@ class Queue extends Component {
 							<p>Dr. Elena Perez</p>
 						</div>
 					</div>
-					<div className="col-sm-4 card text-center">
+					<div className="col-sm-3 card text-center">
 						<div className="card-body">
 							<h1>0012</h1>
 						</div>
@@ -66,16 +61,7 @@ class Queue extends Component {
 							<p>Dr. Elena Perez</p>
 						</div>
 					</div>
-					<div className="col-sm-4 card text-center">
-						<div className="card-body">
-							<h1>0012</h1>
-						</div>
-						<div className="card-text">
-							<p>Doctor Office 7</p>
-							<p>Dr. Elena Perez</p>
-						</div>
-					</div>
-					<div className="col-sm-4 card text-center">
+					<div className="col-sm-3 card text-center">
 						<div className="card-body">
 							<h1>0012</h1>
 						</div>
@@ -92,4 +78,4 @@ class Queue extends Component {
 
 }
 
-export default Queue;
+export default DisplayQueue;

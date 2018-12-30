@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Queue.associate = function(models) {
     // associations can be defined here
+    Queue.hasMany(models.Ticket, { foreignKey: 'queueId' });
   };
   return Queue;
 };

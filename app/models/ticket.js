@@ -1,7 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Ticket = sequelize.define('Ticket', {
-    isActive: DataTypes.BOOLEAN
+    isActive: DataTypes.BOOLEAN,
+    ticketNumber: DataTypes.INTEGER
   }, {});
   Ticket.associate = function(models) {
     // associations can be defined here

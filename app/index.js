@@ -25,7 +25,14 @@ app.get("/", (req, res) => {
 });
 
 app.post("/patients/create", patientController.create);
+
 app.get("/queues/gettickets", queueController.getTickets);
+app.get("/queues/getactivequeue", queueController.getActiveQueue);
+app.post("/queues/opennewqueue", queueController.openNewQueue);
+app.post("/queues/closeactivequeue", queueController.closeActiveQueue);
+
+app.get("/patients/test", patientController.test);
+
 // start the server
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);

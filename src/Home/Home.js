@@ -8,7 +8,7 @@ class Home extends Component{
 			<div className="container">
 			  <div className="row">
 			    <div className="col-4 card">
-			      <NewPatient/>
+			      <NewPatient />
 			    </div>
 			    <div className="col-8 card">
 			    	<DisplayQueue />

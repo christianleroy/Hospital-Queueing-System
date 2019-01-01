@@ -8,7 +8,7 @@ function NavBar(props){
       <h5 className="my-0 mr-md-auto font-weight-normal text-danger">MedWay</h5>
       <nav className="my-2 my-md-0 mr-md-3">
         <Link className={(activeTab==="/" && "p-2 text-danger") || "p-2 text-dark"} to="/">Home</Link>
-        <Link className={(activeTab==="/queues" && "p-2 text-danger") || "p-2 text-dark"} to="/queues">Queues</Link>
+        <Link className={(activeTab==="/queue" && "p-2 text-danger") || "p-2 text-dark"} to="/queue">Queue</Link>
         <Link className={(activeTab==="/doctors" && "p-2 text-danger") || "p-2 text-dark"} to="/doctors">Doctors</Link>
         <Link className={(activeTab==="/patients" && "p-2 text-danger") || "p-2 text-dark"} to="/patients">Patients</Link>
       </nav>

@@ -3,8 +3,9 @@ import NavBar from './NavBar/NavBar';
 import Home from './Home/Home';
 import Patients from './Patients/Patients';
 import Doctors from './Doctors/Doctors';
-import Queues from './Queues/Queues';
+import Queue from './Queues/Queue';
 import {Route} from 'react-router-dom';
+import {Modal, Button} from 'reactstrap';
 
 class App extends Component {
   render() {
@@ -12,7 +13,7 @@ class App extends Component {
       <div>
         <NavBar/>
         <Route exact path="/" component={Home} />
-        <Route exact path="/queues" component={Queues} />
+        <Route exact path="/queue" component={Queue} />
         <Route exact path="/patients" component={Patients} />
         <Route exact path="/doctors" component={Doctors} />
       </div>

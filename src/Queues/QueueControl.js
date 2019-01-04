@@ -57,10 +57,11 @@ class QueueControl extends Component{
     }
     return button;
   }
+
   render(){
     return(
       <React.Fragment>
-        <div style={{marginTop: '20px', marginBottom: '30px'}}>
+        <div className="card" style={{marginTop: '20px', marginBottom: '20px'}}>
           {!this.state.hasOpenQueue &&
           <div className="alert alert-danger">
             No queue is currently open. Click <em>Open New Queue</em> to start.

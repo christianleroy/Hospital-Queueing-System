@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import QueueTickets from './QueueTickets';
 import QueueControl from './QueueControl';
+import OnDutyDoctors from '../Doctors/OnDutyDoctors';
 import axios from 'axios';
 import { config } from '../Config/config.js';
 
@@ -13,7 +14,7 @@ class Queue extends Component{
 		});
 	}
 
-	async refresh(){
+	async refreshTickets(){
 		let tickets = (await axios.get(`${this.URL}/queues/gettickets`)).data;
 		this.setState({
 			tickets
@@ -26,11 +27,20 @@ class Queue extends Component{
 			<div className="container">
 				<div className="row">
 					<div className="col-4 card">
-						<QueueControl refreshTickets={() => this.refresh()}/>
+						<div className="container">
+							<div className="row">
+								<QueueControl refreshTickets={() => this.refreshTickets()}/>
+							</div>
+						</div>
 					</div>
 					<div className="col-8 card">
+						<OnDutyDoctors refreshTickets={() => this.refreshTickets()}/>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-12 card">
 						<QueueTickets
-							refresh={() => this.refresh()}
+							refreshTickets={() => this.refreshTickets()}
 							tickets={this.state.tickets}
 						/>
 					</div>

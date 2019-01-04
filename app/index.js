@@ -13,23 +13,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(helmet())
 app.use(cors());
 
-var patientController = require('./controllers/patientController');
-var queueController = require('./controllers/queueController');
-
-
-// retrieve all questions
-app.get("/", (req, res) => {
-  var msg = "Testing server";
-  var patient = db.Patient;
-  res.send(msg);
-});
+let patientController = require('./controllers/patientController');
+let queueController = require('./controllers/queueController');
+let doctorController = require('./controllers/doctorController');
 
 app.post("/patients/create", patientController.create);
 
 app.get("/queues/gettickets", queueController.getTickets);
 app.get("/queues/getactivequeue", queueController.getActiveQueue);
+app.get("/queues/getticketswithdoctors", queueController.getTicketsWithDoctors);
 app.post("/queues/opennewqueue", queueController.openNewQueue);
 app.post("/queues/closeactivequeue", queueController.closeActiveQueue);
+app.get("/doctors/getondutydoctors", doctorController.getOnDutyDoctors);
+app.post("/doctors/nextpatient", doctorController.nextPatient);
 
 app.get("/patients/test", patientController.test);
 

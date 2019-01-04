@@ -3,6 +3,9 @@ const db = require('../models/index.js');
 const Patient = db.Patient;
 const Queue = db.Queue;
 const Ticket = db.Ticket;
+const Doctor = db.Doctor;
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 exports.getActiveQueue = async function(req, res){
   let queue = await Queue.findAll({
@@ -35,7 +38,13 @@ exports.getTickets = async function(req, res){
       {
         model: Patient,
         as: 'patient',
-        attributes: ['firstName', 'lastName', 'gender']
+        attributes: ['firstName', 'lastName', 'gender', 'birthday', 'caseDescription']
+      },
+      {
+        model: Doctor,
+        as: 'doctor',
+        attributes: ['firstName', 'lastName'],
+        required: false
       }
     ]
   });
@@ -43,9 +52,25 @@ exports.getTickets = async function(req, res){
     ticketNo: ticket.ticketNumber,
     queueId: ticket.queueId,
     firstName: ticket.patient.firstName,
-    lastName: ticket.patient.lastName
+    lastName: ticket.patient.lastName,
+    gender: ticket.patient.gender,
+    birthday: ticket.patient.birthday,
+    caseDescription: ticket.patient.caseDescription,
+    doctor: ticket.doctor ? "Dr. "+ticket.doctor.firstName+" "+ticket.doctor.lastName : "No attending physician yet."
   }));
   res.send(result);
+}
+
+exports.getTicketsWithDoctors = async function(req, res){
+  let ticketsWithDoctors = await Ticket.findAll({
+    where: {
+      isActive: true,
+      doctorId: {
+        [Op.ne] : null
+      }
+    }
+  });
+  res.send(ticketsWithDoctors);
 }
 
 exports.openNewQueue = async function(req, res){

@@ -5,20 +5,29 @@ const Queue = db.Queue;
 const Ticket = db.Ticket;
 
 exports.test = async function(req, res){
-	let activeQueue = await Queue.findAll({
-		where:{
-			isActive: true
-		},
-		include: [{
-			model: Ticket
+	const Doctor = db.Doctor;
+
+	let doctor = await Doctor.findByPk(7, {
+		include:[{
+			model: Ticket,
+			where: {
+				isActive: true
+			},
+			include: [{
+				model: Queue,
+				as: 'queue',
+				where: {
+					isActive: true
+				},
+				attributes: ['id']
+			}]
 		}]
 	});
-	activeQueue = activeQueue[0];
-	res.send(await activeQueue.getTickets());
+	res.send(doctor);
+
 }
 
 exports.create = async function(req, res){
-
 	let {firstName, lastName, caseDescription, gender, birthday} = req.body;
 	let activeQueue = await Queue.findAll({
 		where:{

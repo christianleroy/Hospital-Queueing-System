@@ -21,6 +21,13 @@ class Queue extends Component{
 		});
 	}
 
+	getActiveTickets(){
+		let activeTickets = this.state.tickets.map(ticket=>{
+			return ticket.isActive === true;
+		}).length;
+		return activeTickets;
+	}
+
 	render(){
 		return (
 			<React.Fragment>
@@ -29,7 +36,10 @@ class Queue extends Component{
 					<div className="col-4 card">
 						<div className="container">
 							<div className="row">
-								<QueueControl refreshTickets={() => this.refreshTickets()}/>
+								<QueueControl
+									refreshTickets={() => this.refreshTickets()}
+									activeTickets={this.getActiveTickets()}
+									totalTickets={this.state.tickets.length}/>
 							</div>
 						</div>
 					</div>

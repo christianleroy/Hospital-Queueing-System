@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
   const Doctor = sequelize.define('Doctor', {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    specialization: DataTypes.STRING,
     onDuty: DataTypes.BOOLEAN
   }, {});
   Doctor.associate = function(models) {

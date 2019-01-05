@@ -8,7 +8,6 @@ class QueueControl extends Component{
     super();
     this.URL = config.URL;
     this.initialState = {
-      activeTickets: 0,
       totalTickets: 0,
       startDate: null,
       hasOpenQueue: false
@@ -26,7 +25,6 @@ class QueueControl extends Component{
       activeQueue = activeQueue[0];
       this.setState({
         hasOpenQueue: true,
-        activeTickets: activeQueue.Tickets.filter(ticket => ticket.isActive===true).length,
         totalTickets: activeQueue.Tickets.length,
         startDate: activeQueue.startDate
       });
@@ -74,7 +72,7 @@ class QueueControl extends Component{
             <li className="list-group-item">
               <span className="text text-danger"> Active Tickets: </span>
               <span className="text">
-                {this.state.activeTickets}
+                {this.props.activeTickets}
               </span>
             </li>
             <li className="list-group-item">

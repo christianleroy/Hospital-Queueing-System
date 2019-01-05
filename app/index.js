@@ -24,6 +24,10 @@ app.get("/queues/getactivequeue", queueController.getActiveQueue);
 app.get("/queues/getticketswithdoctors", queueController.getTicketsWithDoctors);
 app.post("/queues/opennewqueue", queueController.openNewQueue);
 app.post("/queues/closeactivequeue", queueController.closeActiveQueue);
+
+app.post("/doctors/adddoctor", doctorController.addDoctor);
+app.get("/doctors/getalldoctors", doctorController.getAllDoctors);
+app.post("/doctors/toggleduty", doctorController.toggleDuty);
 app.get("/doctors/getondutydoctors", doctorController.getOnDutyDoctors);
 app.post("/doctors/nextpatient", doctorController.nextPatient);
 

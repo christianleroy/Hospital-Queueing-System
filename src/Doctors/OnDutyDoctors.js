@@ -50,7 +50,7 @@ class OnDutyDoctors extends Component{
 
   render(){
     return (
-      <div className="row" style={{marginTop:'20px', marginBottom:'20px', marginLeft: '5px'}}>
+      <div className="row" style={{marginTop:'20px', marginBottom:'20px', marginLeft: '5px', marginRight: '5px'}}>
         {this.state.onDutyDoctors.length===0 && 'No on duty doctors.'}
         {this.state.onDutyDoctors.length>0 && this.state.onDutyDoctors.map(onDutyDoctor => (
           <div key={onDutyDoctor.doctorId} className="col-sm-4 card text-center">

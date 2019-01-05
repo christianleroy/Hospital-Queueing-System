@@ -19,7 +19,6 @@ class NewPatient extends Component{
 			errorMessages: [],
 		};
 		this.state = this.initialState;
-		this.state.show = false;
 		this.updateBirthday = this.updateBirthday.bind(this);
 	}
 

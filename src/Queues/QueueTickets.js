@@ -9,7 +9,7 @@ class QueueTickets extends Component{
 	render(){
 		return (
 			<React.Fragment>
-          <table className="table table-striped table-hover table-bordered" style={{marginTop:'20px'}}>
+          <table className="table table-striped table-hover table-bordered" style={{marginTop:'20px', marginBottom: '20px'}}>
             <thead>
               <tr>
                 <th className="text-danger">Ticket #</th>

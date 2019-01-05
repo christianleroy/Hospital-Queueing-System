@@ -68,9 +68,37 @@ exports.getTicketsWithDoctors = async function(req, res){
       doctorId: {
         [Op.ne] : null
       }
+    },
+    order: [['updatedAt','DESC']],
+    include: [{
+      model: Queue,
+      as: 'queue',
+      attributes: ['id'],
+      where: {
+        isActive: true
+      }
+    },
+    {
+      model: Patient,
+      as: 'patient',
+      attributes: ['firstName', 'lastName']
+    },
+    {
+      model: Doctor,
+      as: 'doctor',
+      attributes: ['firstName','lastName']
     }
+    ]
   });
-  res.send(ticketsWithDoctors);
+
+  const result = ticketsWithDoctors.map(ticket => {
+    return { ticketId: ticket.id,
+      ticketNumber: ticket.ticketNumber,
+      patient: ticket.patient.firstName +" "+ticket.patient.lastName,
+      doctor: ticket.doctor.firstName +" "+ticket.doctor.lastName
+    };
+  });
+  res.send(result);
 }
 
 exports.openNewQueue = async function(req, res){

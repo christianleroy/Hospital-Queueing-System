@@ -3,8 +3,8 @@ import NavBar from './NavBar/NavBar';
 import Home from './Home/Home';
 import Doctors from './Doctors/Doctors';
 import Queue from './Queues/Queue';
+import ModalExample from './Home/ModalExample';
 import {Route} from 'react-router-dom';
-import {Modal, Button} from 'reactstrap';
 
 class App extends Component {
   render() {
@@ -14,6 +14,7 @@ class App extends Component {
         <Route exact path="/" component={Home} />
         <Route exact path="/queue" component={Queue} />
         <Route exact path="/doctors" component={Doctors} />
+        <Route exact path="/test" component={ModalExample} />
       </div>
     );
   }

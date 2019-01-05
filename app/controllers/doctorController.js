@@ -5,13 +5,83 @@ const Ticket = db.Ticket;
 const Queue = db.Queue;
 const Patient = db.Patient;
 
+exports.addDoctor = async function(req, res){
+  let { firstName, lastName, onDuty } = req.body;
+  let result = {
+    success: false,
+    message: null
+  };
+
+  try{
+    let newDoctor = await Doctor.create({
+      firstName,
+      lastName,
+      onDuty
+    });
+    result.success = true;
+    result.message = "Successfully added a new doctor.";
+
+  } catch(e){
+    result.success = false;
+    result.message = e.toString();
+  }
+  res.send(result);
+}
+
+exports.toggleDuty = async function(req, res){
+
+  let { doctorId } = req.body;
+  let result = {
+    success: false,
+    message: null
+  };
+  
+  try {
+    let doctor = await Doctor.findByPk(doctorId);
+    if(doctor){
+      await doctor.update({
+        onDuty: !doctor.onDuty
+      });
+      result.success = true;
+      result.message = "Successfull changed doctor on-duty status.";
+    } else {
+      result.success = false;
+      result.message = "Doctor not found.";
+    }
+
+  } catch(e){
+    result.success = false;
+    result.message = e.toString();
+  }
+
+  res.send(result);
+}
+
+exports.getAllDoctors = async function(req, res){
+  let doctors = await Doctor.findAll({
+    attributes: ['id','firstName','lastName','onDuty'],
+    order: [['lastName'],['firstName']]
+  });
+
+  const result = doctors.map(doctor=>{
+    return {
+      doctorId: doctor.id,
+      firstName: doctor.firstName,
+      lastName: doctor.lastName,
+      onDuty: doctor.onDuty
+    }
+  });
+
+  res.send(result);
+}
+
 exports.getOnDutyDoctors = async function(req, res){
   let doctors = await Doctor.findAll({
     attributes: ['id', 'firstName', 'lastName'],
     where: {
       onDuty: true
     },
-    order: ['lastName'],
+    order: [['lastName'],['firstName']],
     include: [{
       model: Ticket,
       where: {

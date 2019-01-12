@@ -40,7 +40,6 @@ class Doctors extends Component{
 						break;
 					}
 				}
-
 				this.setState({
 					doctors
 				});
@@ -56,7 +55,7 @@ class Doctors extends Component{
 				<div className="container">
 					<div className="row">
 						<div className="col-4 card">
-							<NewDoctor />
+							<NewDoctor refresh={()=>this.refresh()}/>
 						</div>
 						<div className="col-8 card">
 							<AllDoctors

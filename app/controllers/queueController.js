@@ -90,7 +90,6 @@ exports.getTicketsWithDoctors = async function(req, res){
     }
     ]
   });
-
   const result = ticketsWithDoctors.map(ticket => {
     return { ticketId: ticket.id,
       ticketNumber: ticket.ticketNumber,

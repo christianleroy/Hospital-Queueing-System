@@ -4,13 +4,22 @@ import QueueControl from './QueueControl';
 import OnDutyDoctors from '../Doctors/OnDutyDoctors';
 import axios from 'axios';
 import { config } from '../Config/config.js';
+import socketIOClient from "socket.io-client";
 
 class Queue extends Component{
+
 	constructor(){
 		super();
 		this.URL = config.URL;
 		this.state = ({
-				tickets: []
+			tickets: []
+		});
+	}
+
+	componentDidMount(){
+		const socket = socketIOClient(`${this.URL}/queue`);
+		socket.on("next", () => {
+			this.refreshTickets();
 		});
 	}
 

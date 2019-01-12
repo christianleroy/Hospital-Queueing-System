@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {config} from '../Config/config';
 import axios from 'axios';
+import socketIOClient from "socket.io-client";
 
 class DisplayQueue extends Component {
+
 	constructor(){
 		super();
 		this.URL = config.URL;
@@ -11,10 +13,18 @@ class DisplayQueue extends Component {
 		};
 	}
 
-	async componentDidMount(){
+	async refreshQueue(){
 		let ticketsWithDoctors = (await axios.get(`${this.URL}/queues/getticketswithdoctors`)).data;
 		this.setState({
 			ticketsWithDoctors
+		});
+	}
+
+	componentDidMount(){
+		this.refreshQueue();
+		const socket = socketIOClient(this.URL);
+		socket.on("next", () => {
+			this.refreshQueue();
 		});
 	}
 
@@ -47,7 +57,7 @@ class DisplayQueue extends Component {
 				<div className="row" style={{marginBottom:'20px'}}>
 				{latestTicketWithDoctor &&
 					this.state.ticketsWithDoctors.map(ticketWithDoctor => (
-							<div className="col-sm-4 card text-center">
+							<div key={ticketWithDoctor.ticketNumber} className="col-sm-4 card text-center">
 								<div className="card-body">
 									<h1 className="text-danger">{ticketWithDoctor.ticketNumber.toString().padStart(4, "0")}</h1>
 								</div>

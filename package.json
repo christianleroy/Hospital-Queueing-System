@@ -11,6 +11,7 @@
     "helmet": "^3.15.0",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.9",
+    "path": "^0.12.7",
     "pg": "^7.7.1",
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.6.2",
@@ -21,7 +22,9 @@
     "react-scripts": "2.1.1",
     "reactstrap": "^7.0.2",
     "sequelize": "^4.42.0",
-    "sequelize-cli": "^5.4.0"
+    "sequelize-cli": "^5.4.0",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -56,19 +56,23 @@ class NewDoctor extends Component{
 	async submit(){
 		this.setState({
 		  submitDisabled: true,
-	    resetDisabled: true
-    });
+		    resetDisabled: true
+	    });
+		
 		let {firstName, lastName, onDuty } = this.state;
-    await axios.post(`${this.URL}/doctors/adddoctor`, {
-      firstName,
-      lastName,
-      onDuty
-    }).then(response => {
-    	this.setState(this.initialState);
-    }).catch(function(error){
-    	console.log(error);
-    });
-    this.setState({ submitDisabled:false, resetDisabled: false });
+	    
+	    await axios.post(`${this.URL}/doctors/adddoctor`, {
+	      firstName,
+	      lastName,
+	      onDuty
+	    }).then(response => {
+	    	this.setState(this.initialState);
+	    	this.props.refresh();
+	    }).catch(function(error){
+	    	console.log(error);
+	    });
+
+	    this.setState({ submitDisabled:false, resetDisabled: false });
 	}
 
 	reset(){

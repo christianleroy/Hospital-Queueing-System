@@ -1,3 +1,4 @@
+'use strict';
 const db = require('./models/index.js');
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -6,6 +7,13 @@ const PORT = process.env.PORT || 1604;
 const helmet = require('helmet');
 const app = express();
 const cors = require('cors');
+const http = require('http');
+const server = http.createServer(app);
+const socketIo = require('socket.io');
+const ioUtil = require('./io/io');
+const path = require('path');
+ioUtil.setIo(socketIo(server));
+const io = ioUtil.getIo();
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
@@ -31,9 +39,13 @@ app.post("/doctors/toggleduty", doctorController.toggleDuty);
 app.get("/doctors/getondutydoctors", doctorController.getOnDutyDoctors);
 app.post("/doctors/nextpatient", doctorController.nextPatient);
 
-app.get("/patients/test", patientController.test);
+// Handle React routing, return all requests to React app
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build", "index.html"));
+});
 
 // start the server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
+

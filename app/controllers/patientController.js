@@ -4,28 +4,12 @@ const Patient = db.Patient;
 const Queue = db.Queue;
 const Ticket = db.Ticket;
 
-exports.test = async function(req, res){
-	const Doctor = db.Doctor;
+const ioUtil = require('../io/io');
+const io = ioUtil.getIo();
 
-	let doctor = await Doctor.findByPk(7, {
-		include:[{
-			model: Ticket,
-			where: {
-				isActive: true
-			},
-			include: [{
-				model: Queue,
-				as: 'queue',
-				where: {
-					isActive: true
-				},
-				attributes: ['id']
-			}]
-		}]
-	});
-	res.send(doctor);
-
-}
+const home = io.of('/queue').on('connection', socket=>{
+  console.log("Connected from Queue page.");
+});
 
 exports.create = async function(req, res){
 	let {firstName, lastName, caseDescription, gender, birthday} = req.body;

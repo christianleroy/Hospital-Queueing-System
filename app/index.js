@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(helmet())
 app.use(cors());
+app.use(express.static(path.join(__dirname, "../build")));
 
 let patientController = require('./controllers/patientController');
 let queueController = require('./controllers/queueController');

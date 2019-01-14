@@ -6,6 +6,10 @@ const Ticket = db.Ticket;
 const Doctor = db.Doctor;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const io = require('../io/io').getIo();
+const home = io.of('/').on('connection', socket=>{
+  console.log("Connected from Home page.");
+});
 
 exports.getActiveQueue = async function(req, res){
   let queue = await Queue.findAll({
@@ -151,6 +155,7 @@ exports.closeActiveQueue = async function(req, res){
       })
       result.success = true;
       result.message= 'Active queue has been successfully closed.';
+      home.emit("closeQueue");
     }
   }
   catch(e){

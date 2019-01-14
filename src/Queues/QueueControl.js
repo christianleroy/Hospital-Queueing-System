@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import { config } from '../Config/config.js';
+import socketIOClient from "socket.io-client";
 
 class QueueControl extends Component{
 
@@ -17,6 +18,10 @@ class QueueControl extends Component{
 
   componentDidMount(){
     this.refresh();
+    const socket = socketIOClient(`${this.URL}/queue`);
+    socket.on("newPatient", () => {
+      this.refresh();
+    });
   }
 
   async refresh(){

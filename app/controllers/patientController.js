@@ -3,11 +3,8 @@ const db = require('../models/index.js');
 const Patient = db.Patient;
 const Queue = db.Queue;
 const Ticket = db.Ticket;
-
-const ioUtil = require('../io/io');
-const io = ioUtil.getIo();
-
-const home = io.of('/queue').on('connection', socket=>{
+const io = require('../io/io').getIo();
+const queue = io.of('/queue').on('connection', socket=>{
   console.log("Connected from Queue page.");
 });
 
@@ -21,6 +18,11 @@ exports.create = async function(req, res){
 			model: Ticket
 		}]
 	});
+	
+	let result = {
+		success: false,
+		message: null
+	};
 
 	if(activeQueue.length>0){
 		try{
@@ -40,24 +42,19 @@ exports.create = async function(req, res){
 			});
 			await ticket.setPatient(patient);
 			await ticket.setQueue(activeQueue);
+			result.success = true;
+			result.message = "Patient successfully created.";
+
+			queue.emit("newPatient");
 		}
 		catch(e){
-			let result = {
-				success: false,
-				message: e
-			};
-			res.send(result);
+			result.success = false;
+			result.message = e.toString();
 		}
-		let result = {
-			success: true,
-			message: "Patient successfuly created."
-		}
-		res.send(result)
 	} else {
-		let result = {
-			success: false,
-			message: "No active queue."
-		};
-		res.send(result);
+		result.success = false;
+		result.message = "No active queue.";
 	}
+	res.send(result);
+
 }

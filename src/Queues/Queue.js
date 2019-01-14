@@ -21,6 +21,9 @@ class Queue extends Component{
 		socket.on("next", () => {
 			this.refreshTickets();
 		});
+		socket.on("newPatient", ()=> {
+			this.refreshTickets();
+		});
 	}
 
 	async refreshTickets(){

@@ -26,6 +26,9 @@ class DisplayQueue extends Component {
 		socket.on("next", () => {
 			this.refreshQueue();
 		});
+		socket.on("closeQueue", ()=>{
+			this.refreshQueue();
+		});
 	}
 
 	getLatestTicketWithDoctor(){

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {config} from '../Config/config';
+import socketIOClient from "socket.io-client";
 
 class OnDutyDoctors extends Component{
 
@@ -14,6 +15,10 @@ class OnDutyDoctors extends Component{
 
   componentDidMount(){
   		this.refresh();
+      const socket = socketIOClient(`${this.URL}/queue`);
+      socket.on("doctorToggleDuty", ()=>{
+        this.refresh();
+      });
   }
 
   async refresh(){

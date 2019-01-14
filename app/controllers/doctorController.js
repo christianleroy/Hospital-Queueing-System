@@ -4,11 +4,12 @@ const Doctor = db.Doctor;
 const Ticket = db.Ticket;
 const Queue = db.Queue;
 const Patient = db.Patient;
-const ioUtil = require('../io/io');
-const io = ioUtil.getIo();
-
+const io = require('../io/io').getIo();
 const home = io.of('/').on('connection', socket=>{
   console.log("Connected from Home page.");
+});
+const queue = io.of('/queue').on('connection', socket=>{
+  console.log("Connected from Queue page.");
 });
 
 exports.addDoctor = async function(req, res){
@@ -59,7 +60,7 @@ exports.toggleDuty = async function(req, res){
     result.success = false;
     result.message = e.toString();
   }
-
+  queue.emit("doctorToggleDuty");
   res.send(result);
 }
 

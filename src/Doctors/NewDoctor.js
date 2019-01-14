@@ -34,7 +34,7 @@ class NewDoctor extends Component{
 
   updateOnDuty(value){
     this.setState({
-      onDuty: value
+      onDuty: !value
     });
     this.validate();
   }

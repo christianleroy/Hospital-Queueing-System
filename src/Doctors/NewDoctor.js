@@ -10,7 +10,7 @@ class NewDoctor extends Component{
 		this.initialState =  {
 			firstName: '',
 			lastName: '',
-      onDuty: true,
+      		onDuty: true,
 			submitDisabled: true,
 			resetDisabled: false,
 			errorMessages: [],
@@ -32,9 +32,10 @@ class NewDoctor extends Component{
 		this.validate();
 	}
 
-  updateOnDuty(value){
+  updateOnDuty(){
+  	let onDuty = this.state.onDuty;
     this.setState({
-      onDuty: !value
+      onDuty: !onDuty
     });
     this.validate();
   }
@@ -113,8 +114,8 @@ class NewDoctor extends Component{
 						/>
 					</div>
 					<div className="form-check" style={{marginBottom:'20px'}}>
-					  <input className="form-check-input" type="checkbox" value={this.state.onDuty} id="onDuty"
-							onChange={(e) => this.updateOnDuty(e.target.value)}
+					  <input className="form-check-input" type="checkbox" id="onDuty"
+							onChange={() => this.updateOnDuty()}
 							checked={this.state.onDuty}
 						 />
 					  <label className="form-check-label" htmlFor="onDuty">
